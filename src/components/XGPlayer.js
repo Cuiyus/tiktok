@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Xgplayer from 'xgplayer-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Topbar from '../components/Topbar';
+import BottomBar from '../components/BottomBar';
 import API from '../API';
 import 'swiper/swiper.scss';
 // 样式
@@ -11,22 +12,33 @@ import Comment from "./Comment";
 import {render} from "@testing-library/react";
 
 // xgplayer设置
-function config(idx, urlx, activex) {
+function config(idx, urlx, posterx) {
   return {
     id: 'player' + idx,
     url: urlx,
     fluid: true,
     fitVideoSize: 'auto',
     videoInit: true,//封面图为视频首帧
-    // volume: 0, //初始音量0，否则无法自动播放
-    autoplay: activex, //自动播放
     loop: true, //循环播放
     controls: false,//关闭控制条
+    poster: posterx,
   }
 }
 
 let Player = [];
 let playerId = 0;
+let playerActiveId = 0;
+let isPlaying = false;
+
+function playOrParse(){
+  if(isPlaying) {
+    Player[playerActiveId].pause();
+    isPlaying=false;
+  } else {
+    Player[playerActiveId].play();
+    isPlaying=true;
+  }
+}
 
 // Swiper组件
 class SwiperList extends Component {
@@ -40,7 +52,6 @@ class SwiperList extends Component {
   }
 
   componentDidMount() {
-    console.log('111');
   }
 
   handleCommentOpen() {
@@ -62,7 +73,10 @@ class SwiperList extends Component {
           for(let i=0; i<Player.length; i++) {
             Player[i].pause()
           }
+          playerActiveId = swiper.activeIndex;
+          Player[swiper.activeIndex].reload();
           Player[swiper.activeIndex].play();
+          isPlaying = true;
           this.props.changeVideo(swiper.activeIndex);
         }}
         onAfterInit={(swiper)=>{//自动播放第一个视频
@@ -75,6 +89,17 @@ class SwiperList extends Component {
             <SwiperSlide key={x[0]}>
               <Xgplayer config={config(x[0], x[5])} playerInit={(player) => { Player[playerId++] = player; }} />
               <div className="panel video-info">
+                <div className="video-info-bg" onClick={playOrParse}>
+                  <div className="video-info-textArea">
+                    <div className="video-info-userName">@{x[8]}</div>
+                    <div className="video-info-text">{x[10]}</div>
+                    <div className="video-info-musicLogo">♩</div>
+                    <div className="video-info-musicArea">
+                      <div className="video-info-music">{x[9]}</div>
+                    </div>
+                  </div>
+                  <div className="video-info-MusicCircle">11</div>
+                </div>
                 <BasicInfo
                   videoInfo={videoInfo}
                   handleCommentOpen={this.handleCommentOpen}
@@ -142,6 +167,7 @@ class PlayerArea extends Component {
           videoComment={videoComment}
           changeVideo={this.changeVideo}
         />
+        <BottomBar/>
       </div>
     ):(
       <div>loading</div>
