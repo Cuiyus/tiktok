@@ -1,0 +1,28 @@
+.right-info {
+  position: absolute;
+  right: 0;
+  bottom: 15vh;
+  z-index: 1;
+  font-size: 2vh;
+  /*background-color: aqua;*/
+}
+
+.right-info .avatar {
+  width: 8vh;
+  height: 8vh;
+  border-radius: 50%;
+  background-color: antiquewhite;
+}
+
+.right-info>div{
+  margin-bottom: 2vh;
+}
+
+.right-info>div>.iconfont {
+  font-size: 6vh;
+}
+
+.right-info .love-icon {
+  color: red;
+}
+
