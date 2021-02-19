@@ -29,6 +29,10 @@ import Iconfont from "./iconfont"
 class index extends Component {
     componentDidMount(){
         let btm = document.getElementById("btm_0");
+<<<<<<< HEAD
+=======
+        console.log("btm = ",btm);
+>>>>>>> 0ebdc813d9aee340eaab85cbf5fab4dabfde1fb2
         btm.style.color="white";
     }
     render() {
