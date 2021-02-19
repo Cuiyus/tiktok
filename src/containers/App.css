@@ -37,6 +37,7 @@
   text-align: left;
   left: 10px;
   overflow: hidden;
+  z-index: 1;
 }
 
 .video-info-userName{
