@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Xgplayer from 'xgplayer-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Topbar from '../components/Topbar';
+import BottomBar from '../components/BottomBar';
 import API from '../API';
 import 'swiper/swiper.scss';
 // 样式
@@ -9,29 +10,54 @@ import './XGPlayer.css'
 import BasicInfo from "./BasicInfo";
 import Comment from "./Comment";
 import {render} from "@testing-library/react";
+import Iconfont from "./iconfont"
 
 // xgplayer设置
-function config(idx, urlx, activex) {
+function config(idx, urlx, posterx) {
   return {
     id: 'player' + idx,
     url: urlx,
     fluid: true,
     fitVideoSize: 'auto',
     videoInit: true,//封面图为视频首帧
-    // volume: 0, //初始音量0，否则无法自动播放
-    autoplay: activex, //自动播放
     loop: true, //循环播放
     controls: false,//关闭控制条
+    poster: posterx,
   }
 }
 
 let Player = [];
 let playerId = 0;
+let playerActiveId = 0;
+let isPlaying = false;
+
+function playOrParse(){
+  if(isPlaying) {
+    Player[playerActiveId].pause();
+    isPlaying=false;
+  } else {
+    Player[playerActiveId].play();
+    isPlaying=true;
+  }
+}
+
+let iconfont={
+        "fontSize":"35px",
+        "position":"relative",
+        "top":"43px",
+        "display":"inline-block",
+        "width":"100px",
+        "height":"50px",
+        "color":"white",
+        "zIndex":"100"
+        // "backgroundColor":"red"
+    }
 
 // Swiper组件
 class SwiperList extends Component {
   constructor(props) {
     super(props);
+    // console.log("props = ",props);
     this.state = {
       isCommentVisible: false,
     };
@@ -40,7 +66,7 @@ class SwiperList extends Component {
   }
 
   componentDidMount() {
-    console.log('111');
+    // console.log('111');
   }
 
   handleCommentOpen() {
@@ -59,10 +85,16 @@ class SwiperList extends Component {
         // loop={true}
         direction={'vertical'}
         onSlideChangeTransitionEnd={(swiper)=>{//切换时先暂停所有，再播放当前
+        // console.log("视频切换");
           for(let i=0; i<Player.length; i++) {
             Player[i].pause()
           }
+          playerActiveId = swiper.activeIndex;
+          // console.log("swiper.activeIndex = ",swiper.activeIndex);
+          Player[swiper.activeIndex].reload();
           Player[swiper.activeIndex].play();
+          // this.reload();
+          isPlaying = true;
           this.props.changeVideo(swiper.activeIndex);
         }}
         onAfterInit={(swiper)=>{//自动播放第一个视频
@@ -71,10 +103,34 @@ class SwiperList extends Component {
       >
         {this.props.urls.map(x => {
           const videoInfo = this.props.urls[this.props.videoIndex];
+          // console.log("videoInfo = ",videoInfo);
+//           reload = () => 
+// {
+//     //RELOAD COMPONENT
+//     this.componentDidMount();
+// };
+          // console.log("this.props.videoIndex = ",this.props.videoIndex);
+          // console.log("x = ",x);
           return (
             <SwiperSlide key={x[0]}>
               <Xgplayer config={config(x[0], x[5])} playerInit={(player) => { Player[playerId++] = player; }} />
               <div className="panel video-info">
+                <div className="video-info-bg" onClick={playOrParse}>
+                  <div className="video-info-textArea">
+                    <div className="video-info-userName">@{x[8]}</div>
+                    <div className="video-info-text" style={{fontSize:"15px"}}>{x[10]}</div>
+                    <div style={iconfont}>
+                    <Iconfont type="icon-douyintubiao-01" style={{fontSize:"25px",color:"rgb(213 213 213)"}}/>
+                    </div>
+                    {/* <div type={{width:"300px",height:"50px",margin:"auto",backgroundColor:"red",zIndex:"100"}}> */}
+                    <div className="video-info-music" style={{zIndex:"100",fontSize:"15px"}}>
+                    {/* </div> */}
+                    
+                    {x[9]}
+                    </div>
+                  </div>
+                  <div className="video-info-MusicCircle">11</div>
+                </div>
                 <BasicInfo
                   videoInfo={videoInfo}
                   handleCommentOpen={this.handleCommentOpen}
@@ -110,6 +166,7 @@ class PlayerArea extends Component {
 
   componentDidMount() {
     API.getList().then(res => {
+      // console.log("res = ",res.data);
       this.setState(() => {
         const urlList = [];
         for(let i in res.data.data) {
@@ -142,6 +199,7 @@ class PlayerArea extends Component {
           videoComment={videoComment}
           changeVideo={this.changeVideo}
         />
+        <BottomBar/>
       </div>
     ):(
       <div>loading</div>

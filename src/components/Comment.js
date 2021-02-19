@@ -17,9 +17,10 @@ class Comment extends Component {
   render() {
     const { isCommentVisible } = this.props;
     return (
-      // <Drawer
-      //   open={isCommentVisible}
-      // />
+      <div>
+        <Drawer
+        open={isCommentVisible}
+      />
       <Drawer
         className="comment-wrap"
         title="Comment"
@@ -30,17 +31,19 @@ class Comment extends Component {
         zIndex={3}
       >
       </Drawer>
+      </div>
+      
     );
     // const { isCommentVisible } = this.props;
-    // const visibleControl = isCommentVisible ? { top: '30vh' } : { top: '100vh' };
-    // return (
-    //   <div
-    //     className="comment-wrap"
-    //     style={visibleControl}
-    //   >
-    //
-    //   </div>
-    // );
+    const visibleControl = isCommentVisible ? { top: '30vh' } : { top: '100vh' };
+    return (
+      <div
+        className="comment-wrap"
+        style={visibleControl}
+      >
+    
+      </div>
+    );
   }
 }
 

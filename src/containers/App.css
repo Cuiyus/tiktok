@@ -24,3 +24,70 @@
   overflow: hidden;
   /*background-color: #0086b3;*/
 }
+
+.video-info-bg{
+  width: 100%;
+  height: 100%;
+}
+
+.video-info-textArea{
+  position: absolute;
+  bottom:50px;
+  width: 70%;
+  height: 150px;
+  text-align: left;
+  left: 10px;
+  overflow: hidden;
+}
+
+.video-info-userName{
+  color: white;
+}
+
+.video-info-text{
+  margin-top: 5px;
+  color: white;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.video-info-music{
+  position: absolute;
+  bottom: 20px;
+  color: white;
+  animation: 10s wordsLoop linear infinite normal;
+}
+@keyframes wordsLoop {
+  0% {
+      transform: translateX(500%);
+      -webkit-transform: translateX(500%);
+  }
+  100% {
+      transform: translateX(-100%);
+      -webkit-transform: translateX(-100%);
+  }
+}
+
+.video-info-MusicCircle{
+  position: absolute;
+  bottom:50px;
+  right: 10px;
+  background-color: #fff;
+  color: #000;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  animation: 10s rotateThis linear infinite normal;
+}
+@keyframes rotateThis {
+  0% {
+    -webkit-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100% {
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+}
