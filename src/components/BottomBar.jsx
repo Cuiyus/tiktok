@@ -12,7 +12,7 @@ import Iconfont from "./iconfont"
     "left":"0px",
     "width":"100%",
     "height":"30px",
-    "zIndex":"99"
+    "zIndex":"-100"
     };
     let iconfont={
         "fontSize":"35px"
@@ -29,7 +29,6 @@ import Iconfont from "./iconfont"
 class index extends Component {
     componentDidMount(){
         let btm = document.getElementById("btm_0");
-        console.log("btm = ",btm);
         btm.style.color="white";
     }
     render() {
