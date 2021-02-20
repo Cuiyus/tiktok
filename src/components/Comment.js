@@ -28,7 +28,7 @@ class Comment extends Component {
         closable={true}
         onClose={this.handleCommentClose}
         visible={isCommentVisible}
-        zIndex={3}
+        zIndex={100}
       >
       </Drawer>
       </div>
