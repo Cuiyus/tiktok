@@ -9,10 +9,30 @@ class BasicInfo extends Component {
     // const commentNum = this.props.videoInfo[4];
     // const isLove = this.props.videoInfo[6];
     // console.log(loveNum, commentNum, isLove);
-    this.state = {};
+    this.state = {
+      commentNum: 0,
+    };
     this.handleLoveClick = this.handleLoveClick.bind(this);
     this.handleCommentOpen = this.handleCommentOpen.bind(this);
     this.handleFansClick = this.handleFansClick.bind(this);
+    this.getCommentTotNum = this.getCommentTotNum.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getCommentTotNum(nextProps.videoInfo[0]);
+  }
+
+  getCommentTotNum(v_id) {
+    API.getComTotal(v_id).then(res => {
+      console.log(v_id, res.data.total);
+      this.setState(() => {
+        return ({
+          commentNum: res.data.total,
+        })
+      });
+    }).catch(err => {
+      console.warn(err);
+    });
   }
 
   handleLoveClick() {
@@ -52,7 +72,7 @@ class BasicInfo extends Component {
   render() {
     // console.log(this.props.videoInfo);
     const loveNum = this.props.videoInfo[3];
-    const commentNum = this.props.videoInfo[4];
+    // const commentNum = this.props.videoInfo[4];
     return (
       <div className='right-info'>
         <div className="avatar">
@@ -67,7 +87,7 @@ class BasicInfo extends Component {
         <div className="comment-icon" onClick={this.handleCommentOpen}>
           <i className="iconfont">&#xe63a;</i>
           <br/>
-          {commentNum}
+          {this.state.commentNum}
         </div>
         <div className="share-icon">
           <i className="iconfont">&#xe63e;</i>

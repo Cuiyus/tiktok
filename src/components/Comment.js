@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CSSTransition } from 'react-transition-group';
 import API from '../API';
 import './Comment.css';
 
@@ -8,10 +7,16 @@ class Comment extends Component {
     super(props);
     this.state = {
       inputComment: '',
+      commentNum: 0,
     };
     this.handleCommentClose = this.handleCommentClose.bind(this);
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.getCommentTotNum = this.getCommentTotNum.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getCommentTotNum(nextProps.videoInfo[0]);
   }
 
   handleInput(event) {
@@ -35,6 +40,7 @@ class Comment extends Component {
     API.wirteVideoCom(_id, user_id, v_com).then(res => {
       console.log(res);
       this.props.updateComment();
+      this.getCommentTotNum(this.props.videoInfo[0]);
     }).catch(err => {
       console.warn(err);
     });
@@ -45,21 +51,32 @@ class Comment extends Component {
     });
   }
 
+  getCommentTotNum(v_id) {
+    API.getComTotal(v_id).then(res => {
+      console.log(v_id, res.data.total);
+      this.setState(() => {
+        return ({
+          commentNum: res.data.total,
+        })
+      });
+    }).catch(err => {
+      console.warn(err);
+    });
+  }
+
   render() {
     const comments = [];
     for(let i in this.props.videoComment) {
       comments.push(this.props.videoComment[i]);
     }
-    console.log(this.props.isCommentVisible);
     return (
       this.props.isCommentVisible ?
         (
-          <CSSTransition className="up">
           <div className="comment-warp-box">
             <div className="comment-warp">
               <div className="comment-list">
                 <div className="comment-top">
-                  <div className="number">11.0w评论</div>
+                  <div className="number">{ this.state.commentNum } 条评论</div>
                   <div className="close" onClick={this.handleCommentClose}><span>×</span></div>
                 </div>
                 <div className="comment-body">
@@ -110,7 +127,6 @@ class Comment extends Component {
                             );
                           })
                         }
-                        <div className="more">-----------展开15条回复</div>
                       </div>
                     )
                   })}
@@ -125,7 +141,6 @@ class Comment extends Component {
               </div>
             </div>
           </div>
-          </CSSTransition>
         ) : null
     );
   }
