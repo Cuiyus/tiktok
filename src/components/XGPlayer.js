@@ -98,7 +98,7 @@ class SwiperList extends Component {
                       <div className="video-info-music">{x[9]}</div>
                     </div>
                   </div>
-                  <div className="video-info-MusicCircle">11</div>
+                  <img className="video-info-MusicCircle" src={x[11]}/>
                 </div>
                 <BasicInfo
                   videoInfo={videoInfo}
