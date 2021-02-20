@@ -44,22 +44,10 @@ function playOrParse(){
 class SwiperList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isCommentVisible: false,
-    };
-    this.handleCommentOpen = this.handleCommentOpen.bind(this);
-    this.handleCommentClose = this.handleCommentClose.bind(this);
+    this.state = {};
   }
 
   componentDidMount() {
-  }
-
-  handleCommentOpen() {
-    this.setState(() => ({ isCommentVisible: true }));
-  }
-
-  handleCommentClose() {
-    this.setState(() => ({ isCommentVisible: false }));
   }
 
   render() {
@@ -102,13 +90,16 @@ class SwiperList extends Component {
                 </div>
                 <BasicInfo
                   videoInfo={videoInfo}
-                  handleCommentOpen={this.handleCommentOpen}
+                  handleCommentOpen={this.props.handleCommentOpen}
+                  handleChangeLoveNum={this.props.handleChangeLoveNum}
                 />
-                <Comment
-                  videoComment={this.props.videoComment}
-                  isCommentVisible={this.state.isCommentVisible}
-                  handleCommentClose={this.handleCommentClose}
-                />
+                {/*<Comment*/}
+                {/*  videoInfo={videoInfo}*/}
+                {/*  videoComment={this.props.videoComment}*/}
+                {/*  isCommentVisible={this.state.isCommentVisible}*/}
+                {/*  handleCommentClose={this.handleCommentClose}*/}
+                {/*  updateComment={this.props.updateComment}*/}
+                {/*/>*/}
               </div>
             </SwiperSlide>
           )
@@ -125,12 +116,34 @@ class PlayerArea extends Component {
       urlList:[],
       commentData: {},
       videoIndex: 0,
+      isCommentVisible: false,
     }
     this.changeVideo = this.changeVideo.bind(this);
+    this.getTotalComment = this.getTotalComment.bind(this);
+    this.handleChangeLoveNum = this.handleChangeLoveNum.bind(this);
+    this.handleCommentOpen = this.handleCommentOpen.bind(this);
+    this.handleCommentClose = this.handleCommentClose.bind(this);
+  }
+
+  handleCommentOpen() {
+    this.setState(() => ({ isCommentVisible: true }));
+  }
+
+  handleCommentClose() {
+    this.setState(() => ({ isCommentVisible: false }));
   }
 
   changeVideo(index) {
     this.setState(() => ({ videoIndex: index }));
+  }
+
+  handleChangeLoveNum(num, isLove) {
+    const { urlList, videoIndex } = this.state;
+    urlList[videoIndex][3] = num;
+    urlList[videoIndex][6] = isLove;
+    this.setState(() => {
+      return { urlList };
+    })
   }
 
   componentDidMount() {
@@ -146,19 +159,26 @@ class PlayerArea extends Component {
       console.warn(err)
     });
 
+    this.getTotalComment();
+  }
+
+  getTotalComment() {
     API.getComment().then(res => {
       this.setState(() => {
-        return { commentData: res.data.anw};
+        return { commentData: res.data.anw };
       });
     }).catch(err => {
       console.warn(err);
     });
   }
+
   render(){
     const urls = this.state.urlList;
     const videoIndex = this.state.videoIndex;
+    const videoInfo = urls[videoIndex];
     const videoComment = this.state.commentData[urls[videoIndex]?.[0]];
-    return this.state.urlList[0]?(
+    // console.log(this.state.commentData);
+    return this.state.urlList[0] ? (
       <div className="video-container">
         <Topbar />
         <SwiperList
@@ -166,6 +186,16 @@ class PlayerArea extends Component {
           videoIndex={videoIndex}
           videoComment={videoComment}
           changeVideo={this.changeVideo}
+          // updateComment={this.getTotalComment}
+          handleChangeLoveNum={this.handleChangeLoveNum}
+          handleCommentOpen={this.handleCommentOpen}
+        />
+        <Comment
+          videoInfo={videoInfo}
+          videoComment={videoComment}
+          isCommentVisible={this.state.isCommentVisible}
+          handleCommentClose={this.handleCommentClose}
+          updateComment={this.getTotalComment}
         />
         <BottomBar/>
       </div>

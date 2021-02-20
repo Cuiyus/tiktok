@@ -23,7 +23,8 @@
   height: 500px;
   width: 100%;
   background: #ffffff;
-  z-index: 88;
+  z-index: 8888;
+  color: #222222;
 }
 .comment-warp{
   position: fixed;
@@ -45,7 +46,6 @@
 .number{
   flex: 1;
   text-align: center;
-  color: #282c34;
 }
 .close{
   padding-right: 10px;
@@ -76,6 +76,7 @@
 }
 .reply-des{
   line-height: 24px;
+  color: #222222;
 }
 .reply .name{
   color: #666;
@@ -117,6 +118,7 @@
   background: #ffffff;
   align-items: center;
   display: flex;
+  color: #222222;
 }
 .reply-input input{
   line-height: 40px;
