@@ -23,12 +23,14 @@ import Iconfont from "./iconfont"
         "width":"20%",
         "textAlign":"center",
         "position":"relative",
-        "top":"6px",
+        "top":"12px",
         "fontSize":"17px"
     }
 
     let iconfont={
         "fontSize":"35px",
+        "position":"relative",
+        "top":"-5px"
         // "height":"40px",
         // "height":"100%",
         // "width":"20%",
@@ -43,7 +45,7 @@ import Iconfont from "./iconfont"
         "width":"100%",
         "height":"3px",
         "position":"fixed",
-        "top":"35px",
+        "top":"40px",
         "left":"0px",
         "zIndex":"100"
     }

@@ -10,6 +10,7 @@ import './XGPlayer.css'
 import BasicInfo from "./BasicInfo";
 import Comment from "./Comment";
 import {render} from "@testing-library/react";
+import Iconfont from "./iconfont"
 
 // xgplayer设置
 function config(idx, urlx, posterx) {
@@ -39,6 +40,19 @@ function playOrParse(){
     isPlaying=true;
   }
 }
+
+let iconfont={
+        "fontSize":"25px",
+        "color":"red",
+        "position":"relative",
+        "left":"-8px",
+        "top":"5px"
+    }
+
+    // let basicinfo = {
+    //   "position":"relative",
+    //   "top":"-100px"
+    // }
 
 // Swiper组件
 class SwiperList extends Component {
@@ -80,13 +94,15 @@ class SwiperList extends Component {
                 <div className="video-info-bg" onClick={playOrParse}>
                   <div className="video-info-textArea">
                     <div className="video-info-userName">@{x[8]}</div>
-                    <div className="video-info-text">{x[10]}</div>
-                    <div className="video-info-musicLogo">♩</div>
+                     
+                    <div className="video-info-text" style={{fontSize:"15px"}}>{x[10]}</div>
+                    <div className="video-info-musicLogo" style={{width:"0px"}}>
+                    <Iconfont type="icon-douyintubiao-01-copy" style={iconfont}/></div>
                     <div className="video-info-musicArea">
-                      <div className="video-info-music">{x[9]}</div>
+                      <div className="video-info-music" style={{zIndex:"100",fontSize:"15px"}}>{x[9]}</div>
                     </div>
                   </div>
-                  <img className="video-info-MusicCircle" src={x[11]}/>
+                  <img className="video-info-MusicCircle" style={{positon:"relative",right:"15px"}} src={x[11]}/>
                 </div>
                 <BasicInfo
                   videoInfo={videoInfo}

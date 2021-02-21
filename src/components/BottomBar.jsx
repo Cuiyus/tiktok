@@ -8,27 +8,30 @@ import Iconfont from "./iconfont"
     "flexDirection":"row",
     "justifyContent":"space-between",
     "position":"fixed",
-    "bottom":"10px",
+    "bottom":"0px",
     "left":"0px",
     "width":"100%",
-    "height":"30px",
-    "zIndex":"-100"
+    "height":"45px",
+    "zIndex":"101"
     };
     let iconfont={
-        "fontSize":"35px"
+        "fontSize":"35px",
+        "position":"relative",
+        "top":"-4px"
     }
     let bottombar={
         "color":"#99a9bfda",
         "width":"20%",
         "textAlign":"center",
         "position":"relative",
-        "top":"3px",
+        "top":"10px",
         "fontSize":"16px"
     }
 
 class index extends Component {
     componentDidMount(){
         let btm = document.getElementById("btm_0");
+        // console.log("btm = ",btm);
         btm.style.color="white";
     }
     render() {

@@ -60,7 +60,7 @@ class BasicInfo extends Component {
   }
 
   handleCommentOpen() {
-      this.props.handleCommentOpen();
+    this.props.handleCommentOpen();
   }
 
   render() {
