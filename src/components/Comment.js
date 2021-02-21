@@ -12,12 +12,12 @@ class Comment extends Component {
     this.handleCommentClose = this.handleCommentClose.bind(this);
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.getCommentTotNum = this.getCommentTotNum.bind(this);
+    // this.getCommentTotNum = this.getCommentTotNum.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.getCommentTotNum(nextProps.videoInfo[0]);
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.getCommentTotNum(nextProps.videoInfo[0]);
+  // }
 
   handleInput(event) {
     const inputValue = event.target.value;
@@ -39,8 +39,8 @@ class Comment extends Component {
     const v_com = this.state.inputComment;
     API.wirteVideoCom(_id, user_id, v_com).then(res => {
       console.log(res);
-      this.props.updateComment();
-      this.getCommentTotNum(this.props.videoInfo[0]);
+      this.props.updateComment(this.props.videoInfo[0]);
+      // this.getCommentTotNum(this.props.videoInfo[0]);
     }).catch(err => {
       console.warn(err);
     });
@@ -51,18 +51,18 @@ class Comment extends Component {
     });
   }
 
-  getCommentTotNum(v_id) {
-    API.getComTotal(v_id).then(res => {
-      console.log(v_id, res.data.total);
-      this.setState(() => {
-        return ({
-          commentNum: res.data.total,
-        })
-      });
-    }).catch(err => {
-      console.warn(err);
-    });
-  }
+  // getCommentTotNum(v_id) {
+  //   API.getComTotal(v_id).then(res => {
+  //     console.log(v_id, res.data.total);
+  //     this.setState(() => {
+  //       return ({
+  //         commentNum: res.data.total,
+  //       })
+  //     });
+  //   }).catch(err => {
+  //     console.warn(err);
+  //   });
+  // }
 
   render() {
     const comments = [];
@@ -76,7 +76,7 @@ class Comment extends Component {
             <div className="comment-warp">
               <div className="comment-list">
                 <div className="comment-top">
-                  <div className="number">{ this.state.commentNum } 条评论</div>
+                  <div className="number">{ this.props.videoInfo[4] } 条评论</div>
                   <div className="close" onClick={this.handleCommentClose}><span>×</span></div>
                 </div>
                 <div className="comment-body">
@@ -133,7 +133,11 @@ class Comment extends Component {
                 </div>
                 {/*评论框 */}
                 <div className="reply-input">
-                  <input type="text" placeholder="留下你精彩的评论" value={this.state.inputComment} onChange={(event) => this.handleInput(event)} />
+                  <input
+                    type="text" placeholder="留下你精彩的评论"
+                    value={this.state.inputComment}
+                    onChange={(event) => this.handleInput(event)}
+                  />
                   <span className="emoji">@</span>
                   {/*<span className="iconfont icon-shoucang"></span>*/}
                   <span onClick={this.handleSubmitComment}>发送</span>

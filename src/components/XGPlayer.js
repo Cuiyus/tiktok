@@ -162,10 +162,22 @@ class PlayerArea extends Component {
     this.getTotalComment();
   }
 
-  getTotalComment() {
+  getTotalComment(v_id) {
     API.getComment().then(res => {
       this.setState(() => {
         return { commentData: res.data.anw };
+      });
+    }).catch(err => {
+      console.warn(err);
+    });
+    API.getComTotal(v_id).then(res => {
+      console.log(res.data.total);
+      const { urlList, videoIndex } = this.state;
+      urlList[videoIndex][4] = res.data.total;
+      this.setState(() => {
+        return ({
+          urlList
+        });
       });
     }).catch(err => {
       console.warn(err);
@@ -177,7 +189,7 @@ class PlayerArea extends Component {
     const videoIndex = this.state.videoIndex;
     const videoInfo = urls[videoIndex];
     const videoComment = this.state.commentData[urls[videoIndex]?.[0]];
-    // console.log(this.state.commentData);
+    // console.log(videoInfo?.[4]);
     return this.state.urlList[0] ? (
       <div className="video-container">
         <Topbar />
