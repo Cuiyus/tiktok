@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import API from '../API';
 import './Comment.css';
-
+import UncontrolledLottie from './Comment_Heart';
+import UncontrolledLottie1 from './UncontrolledLottie1';
 class Comment extends Component {
   constructor(props) {
     super(props);
@@ -96,9 +97,13 @@ class Comment extends Component {
                           <div className="item-info">
                             <div className="reply">
                               <p className="name">{ comment[0] }</p>
-                              <p className="reply-des">{ comment[1] } <span className="time">{ comment[2] }</span></p>
+                              <p className="reply-des">{ comment[1] } <br></br><span className="time">{ comment[2] }</span></p>
                             </div>
-                            <div className="zan"> <span className="iconfont icon-aixin"><p className="zan-n">{ comment[5] }</p></span></div>
+                            <div className="zan"> 
+                            <div className="love"><UncontrolledLottie /> </div>
+                            {/*<span className="iconfont icon-aixin">*/}
+                            <p className="zan-n">{ comment[5] }</p>
+                            {/*</span>*/}</div>
                           </div>
                         </div>
 
@@ -116,12 +121,13 @@ class Comment extends Component {
                                   <div className="reply">
                                     <p className="name">{ subComment[0] }</p>
                                     <p className="reply-des">
-                                      <span>回复</span>
-                                      <span className="re-name">{ comment[0] }:</span>
+                                      {/*<span>回复</span>
+                                      <span className="re-name">{ comment[0] }:</span>*/}
                                       <span>{ subComment[1] }</span>
-                                      <span className="time">{subComment[2]}</span></p>
+                                      <br></br>
+                                      <span className="time">{subComment[2].slice(5,10)}</span></p>
                                   </div>
-                                  <div className="zan"><span className="iconfont icon-aixin"><p>{subComment[3]}</p></span></div>
+                                  <div className="zan">{/*<span className="iconfont icon-aixin">*/}<div className="love"><UncontrolledLottie /> </div><p className="zan-n">{subComment[3]}</p>{/*</span>*/}</div>
                                 </div>
                               </div>
                             );

@@ -1,6 +1,49 @@
 import react, { Component, Fragment } from 'react';
 import API from '../API';
 import './BasicInfo.css';
+import Iconfont from "./iconfont"
+import UncontrolledLottie from './UncontrolledLottie';
+import UncontrolledLottie1 from './UncontrolledLottie1';
+let img={
+    "width":"55px",
+    "height":"55px",
+    "display":"inline-block",
+    "borderRadius":"50%",
+    "backgrounColor":"red",
+    "position":"relative",
+    "top":"0px",
+    "left":"-8px",
+  }
+  
+  
+  let headimg = {
+    // "position":"relative",
+    // "top":"-12px",
+    // "left":"-4px",
+    "display":"inline-block",
+    "width":"100%",
+    "height":"100%",
+    "borderRadius":"50%",
+    
+  }
+  
+  let loveicon = {
+    "position":"relative",
+    "left":"-7px",
+    "color":"white",
+    "top":"2px"
+  }
+  
+  let commenticon = {
+    "position":"relative",
+    "left":"-7px",
+    "top":"2px"
+  }
+  
+  let shareicon = {
+    "position":"relative",
+    "left":"-7px"
+  }
 
 class BasicInfo extends Component {
   constructor(props) {
@@ -12,22 +55,7 @@ class BasicInfo extends Component {
     // this.getCommentTotNum = this.getCommentTotNum.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.getCommentTotNum(nextProps.videoInfo[0]);
-  // }
-  //
-  // getCommentTotNum(v_id) {
-  //   API.getComTotal(v_id).then(res => {
-  //     console.log(v_id, res.data.total);
-  //     this.setState(() => {
-  //       return ({
-  //         commentNum: res.data.total,
-  //       })
-  //     });
-  //   }).catch(err => {
-  //     console.warn(err);
-  //   });
-  // }
+
 
   handleLoveClick() {
     const { videoInfo } = this.props;
@@ -68,23 +96,35 @@ class BasicInfo extends Component {
     const loveNum = this.props.videoInfo[3];
     const commentNum = this.props.videoInfo[4];
     return (
-      <div className='right-info'>
-        <div className="avatar">
-          {/*<img src={this.props.videoInfo[2]} />*/}
-          <div className="add-fans" onClick={this.handleFansClick}></div>
+      <div className='right-info'  style={{fontSize:"15px"}}>
+        <div className="avatar" style={img}>
+          <img src={this.props.videoInfo[2]} style={headimg} />
+          <div className="follow" style={{marginRight:"15px"}}>
+            <UncontrolledLottie1 />
+            </div>
+          {/* <div className="add-fans" onClick={this.handleFansClick}></div> */}
         </div>
-        <div className="love-icon" onClick={this.handleLoveClick}>
-          <i className="iconfont">&#xe8c3;</i>
-          <br/>
+        <div className="love-icon" style={loveicon} onClick={this.handleLoveClick}>
+          {/* <i className="iconfont">&#xe8c3;</i> 
+          <Iconfont type="icon-aixin-copy-copy" style={{fontSize:"45px"}}/>
+
+          */}
+          
+          <div className="iconfont">
+            <div className="love1">
+            <UncontrolledLottie />
+            </div>
+          </div> 
           {loveNum}
         </div>
-        <div className="comment-icon" onClick={this.handleCommentOpen}>
+        <div className="comment-icon" style={commenticon} onClick={this.handleCommentOpen}>
           <i className="iconfont">&#xe63a;</i>
           <br/>
           {commentNum}
         </div>
-        <div className="share-icon">
-          <i className="iconfont">&#xe63e;</i>
+        <div className="share-icon" style={shareicon}>
+          {/* <i className="iconfont">&#xe63e;</i> */}
+          <Iconfont type="icon-tubiao_jiemian_douyinzhuanfa-copy" style={{fontSize:"45px"}}/>
           <br/>
           <span>分享</span>
         </div>

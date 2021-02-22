@@ -7,11 +7,17 @@
   /*background-color: aqua;*/
 }
 
+
 .right-info .avatar {
   width: 8vh;
   height: 8vh;
   border-radius: 50%;
   background-color: antiquewhite;
+}
+
+.right-info{
+  right: -105px;
+  
 }
 
 .right-info>div{
@@ -25,4 +31,6 @@
 .right-info .love-icon {
   color: red;
 }
+
+
 
