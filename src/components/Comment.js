@@ -13,12 +13,29 @@ class Comment extends Component {
     this.handleCommentClose = this.handleCommentClose.bind(this);
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    // this.getCommentTotNum = this.getCommentTotNum.bind(this);
+    this.handleLoveCommentOne = this.handleLoveCommentOne.bind(this);
+    this.handleLoveCommentTwo = this.handleLoveCommentTwo.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.getCommentTotNum(nextProps.videoInfo[0]);
-  // }
+
+  handleLoveCommentOne(v_id, c_id) {
+    API.getComAtte(c_id).then(res => {
+      // console.log(res);
+      this.props.updateComment(v_id);
+    }).catch(err => {
+      console.warn(err);
+    });
+    // console.log(this.props.videoComment);
+  }
+
+  handleLoveCommentTwo(v_id, c_id) {
+    API.getSecComAtte(c_id).then(res => {
+      // console.log(res);
+      this.props.updateComment(v_id);
+    }).catch(err => {
+      console.warn(err);
+    });
+  }
 
   handleInput(event) {
     const inputValue = event.target.value;
@@ -41,7 +58,6 @@ class Comment extends Component {
     API.wirteVideoCom(_id, user_id, v_com).then(res => {
       console.log(res);
       this.props.updateComment(this.props.videoInfo[0]);
-      // this.getCommentTotNum(this.props.videoInfo[0]);
     }).catch(err => {
       console.warn(err);
     });
@@ -51,19 +67,6 @@ class Comment extends Component {
       });
     });
   }
-
-  // getCommentTotNum(v_id) {
-  //   API.getComTotal(v_id).then(res => {
-  //     console.log(v_id, res.data.total);
-  //     this.setState(() => {
-  //       return ({
-  //         commentNum: res.data.total,
-  //       })
-  //     });
-  //   }).catch(err => {
-  //     console.warn(err);
-  //   });
-  // }
 
   render() {
     const comments = [];
@@ -100,7 +103,7 @@ class Comment extends Component {
                               <p className="reply-des">{ comment[1] } <br></br><span className="time">{ comment[2] }</span></p>
                             </div>
                             <div className="zan"> 
-                            <div className="love"><UncontrolledLottie /> </div>
+                            <div className="love" onClick={() => this.handleLoveCommentOne(this.props.videoInfo[0], comment[6])}><UncontrolledLottie /> </div>
                             {/*<span className="iconfont icon-aixin">*/}
                             <p className="zan-n">{ comment[5] }</p>
                             {/*</span>*/}</div>
@@ -127,7 +130,10 @@ class Comment extends Component {
                                       <br></br>
                                       <span className="time">{subComment[2].slice(5,10)}</span></p>
                                   </div>
-                                  <div className="zan">{/*<span className="iconfont icon-aixin">*/}<div className="love"><UncontrolledLottie /> </div><p className="zan-n">{subComment[3]}</p>{/*</span>*/}</div>
+                                  <div className="zan">
+                                    <div className="love" onClick={() => this.handleLoveCommentTwo(this.props.videoInfo[0], subComment[5])}><UncontrolledLottie /> </div>
+                                    <p className="zan-n">{subComment[3]}</p>
+                                  </div>
                                 </div>
                               </div>
                             );

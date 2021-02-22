@@ -52,6 +52,20 @@ const API = {
       method: 'get',
       url: '/api/getComTotal' + '?' + 'v_id=' + v_id,
     });
+  },
+
+  async getComAtte(c_id) {
+    return axios({
+      method: 'get',
+      url: '/api/getComAtte' + '?' + 'c_id=' + c_id,
+    });
+  },
+
+  async getSecComAtte(sec_id) {
+    return axios({
+      method: 'get',
+      url: '/api/getSecComAtte' + '?' + 'sec_id=' + sec_id,
+    });
   }
 }
 

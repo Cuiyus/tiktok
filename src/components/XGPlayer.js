@@ -187,7 +187,6 @@ class PlayerArea extends Component {
       console.warn(err);
     });
     API.getComTotal(v_id).then(res => {
-      console.log(res.data.total);
       const { urlList, videoIndex } = this.state;
       urlList[videoIndex][4] = res.data.total;
       this.setState(() => {
