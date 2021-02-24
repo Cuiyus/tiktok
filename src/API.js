@@ -38,6 +38,20 @@ const API = {
       method: 'get',
       url: '/api/getComment',
     });
+  },
+
+  async wirteVideoCom(_id, user_id, v_com) {
+    return axios({
+      method: 'get',
+      url: '/api/wirteVideoCom' + '?' + '_id=' + _id + '&user_id=' + user_id + '&v_com=' + v_com,
+    });
+  },
+
+  async getComTotal(v_id) {
+    return axios({
+      method: 'get',
+      url: '/api/getComTotal' + '?' + 'v_id=' + v_id,
+    });
   }
 }
 

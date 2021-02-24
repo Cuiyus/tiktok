@@ -34,10 +34,17 @@
   position: absolute;
   bottom:50px;
   width: 70%;
+<<<<<<< HEAD
   height: 150px;
   text-align: left;
   left: 10px;
   overflow: hidden;
+=======
+  text-align: left;
+  left: 10px;
+  overflow: hidden;
+  z-index: 1;
+>>>>>>> developer
 }
 
 .video-info-userName{
@@ -45,7 +52,11 @@
 }
 
 .video-info-text{
+<<<<<<< HEAD
   margin-top: 5px;
+=======
+  margin-top: 10px;
+>>>>>>> developer
   color: white;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -53,16 +64,38 @@
   overflow: hidden;
 }
 
+<<<<<<< HEAD
 .video-info-music{
   position: absolute;
   bottom: 20px;
+=======
+.video-info-musicLogo{
+  transform: translate(5px,-20px);
+  display: inline-block;
+}
+.video-info-musicArea{
+  display: inline-block;
+  overflow: hidden;
+  margin-left: 20px;
+  width: 50%;
+}
+.video-info-music{
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+>>>>>>> developer
   color: white;
   animation: 10s wordsLoop linear infinite normal;
 }
 @keyframes wordsLoop {
   0% {
+<<<<<<< HEAD
       transform: translateX(500%);
       -webkit-transform: translateX(500%);
+=======
+      transform: translateX(100%);
+      -webkit-transform: translateX(100%);
+>>>>>>> developer
   }
   100% {
       transform: translateX(-100%);
@@ -71,6 +104,10 @@
 }
 
 .video-info-MusicCircle{
+<<<<<<< HEAD
+=======
+  z-index: 1;
+>>>>>>> developer
   position: absolute;
   bottom:50px;
   right: 10px;

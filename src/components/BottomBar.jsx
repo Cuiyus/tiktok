@@ -12,7 +12,11 @@ import Iconfont from "./iconfont"
     "left":"0px",
     "width":"100%",
     "height":"45px",
-    "zIndex":"99"
+<<<<<<< HEAD
+    // "zIndex":"99"
+=======
+    "zIndex":"101"
+>>>>>>> developer
     };
     let iconfont={
         "fontSize":"35px",
